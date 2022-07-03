@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from "@emotion/styled";
+import React, { useState } from "react";
+import FloatingButton from "./components/common/FloatingButton";
+import Mirror from "./components/Mirror";
+import { AiFillSetting } from "react-icons/ai";
+import Setting from "./components/Setting";
 
 function App() {
+  const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="App">
+      <Mirror showReversedVideo={true} />
+      <FloatingButton
+        icon={<AiFillSetting size={24} />}
+        onClick={() => setIsSettingModalOpen(true)}
+      />
+      {isSettingModalOpen && <Setting handleClose={() => setIsSettingModalOpen(false)} />}
+    </Container>
   );
 }
+
+const Container = styled.div`
+  background-color: black;
+  overflow: hidden;
+`;
 
 export default App;
