@@ -8,26 +8,34 @@ type SettingProps = {
   handleClose: () => void;
 };
 
+type Settings = {
+  isVideoReversed: boolean;
+  isGrayScaled: boolean;
+};
+
 const Setting = ({ handleClose }: SettingProps) => {
-  const settingForm = useFormik({
-    initialValues: {
-      isVideoReversed: false,
-    },
-    onSubmit: (values) => {},
-  });
+  const initialValues: Settings = { isVideoReversed: false, isGrayScaled: false };
+  console.log(initialValues.isVideoReversed);
+
   return (
     <Modal handleClose={handleClose}>
       <Container>
         <Title>설정</Title>
-        <Formik onSubmit={() => {}} initialValues={[]}>
+        <Formik onSubmit={() => {}} initialValues={initialValues}>
           <Form>
             <Label>
               <LabelName>좌우 반전</LabelName>
-              <Field component={() => <Switch />} />
+              <Field
+                name="isVideoReversed"
+                component={() => <Switch isSelected={initialValues.isVideoReversed} />}
+              />
             </Label>
             <Label>
               <LabelName>흑백 모드</LabelName>
-              <Field component={() => <Switch />} />
+              <Field
+                name="isGrayScaled"
+                component={() => <Switch isSelected={initialValues.isGrayScaled} />}
+              />
             </Label>
           </Form>
         </Formik>
@@ -59,6 +67,7 @@ const Label = styled.label`
 
 const LabelName = styled.span`
   font-weight: 500;
+  color: rgb(51, 61, 75);
 `;
 
 export default Setting;

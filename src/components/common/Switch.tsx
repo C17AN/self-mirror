@@ -1,19 +1,23 @@
 import styled from "@emotion/styled";
-import classNames from "classnames";
+import { FormikProps } from "formik";
 import React, { useState } from "react";
 
-const Switch = () => {
-  const [isSelected, setIsSelected] = useState(false);
+type SwitchProps = {
+  isSelected: boolean;
+};
+
+type FormValues = {
+  isGrayScaled: boolean;
+  isVideoReversed: boolean;
+};
+
+const Switch = (props: SwitchProps) => {
+  const { isSelected } = props;
   return (
     <Container>
-      <Content onClick={() => setIsSelected((prev) => !prev)}>
+      <Content>
         <Input type="checkbox" />
-        <SwitchLane
-          className={classNames(
-            "block bg-[#E5E7EB] w-14 h-8 rounded-full",
-            isSelected && "bg-emerald-300"
-          )}
-        ></SwitchLane>
+        <SwitchLane isSelected={isSelected} />
         <SwitchCircle isSelected={isSelected} />
       </Content>
     </Container>
@@ -43,9 +47,9 @@ const Content = styled.div`
   position: relative;
 `;
 
-const SwitchLane = styled.div`
+const SwitchLane = styled.div<{ isSelected: boolean }>`
   display: block;
-  background-color: #e5e7eb;
+  background-color: ${({ isSelected }) => (isSelected ? "rgb(110 231 183)" : "#e5e7eb")};
   width: 3.5rem;
   height: 2rem;
   border-radius: 9999px;
